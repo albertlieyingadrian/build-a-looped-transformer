@@ -145,6 +145,8 @@ What each one is, and what this course borrows. We wrote our own code; nothing b
   budget across recurrences.
 - Towards Looped Models Done Right (2026), code https://github.com/ifm-ai/xllm-loop: diagonal, linear and orthogonal
   input injection, sampled depths, many released checkpoints.
+- nanoloop-transformer, https://github.com/albertlieyingadrian/nanoloop-transformer: the same idea in one file of
+  PyTorch, with a K sweep against a same-parameter standard model.
 - Two other small from-scratch looped GPTs: https://github.com/naatyu/Looped-Transformer (a nanochat fork with a loss
   per loop and a learned exit) and https://github.com/avikds/looped-transformer-from-scratch (Tiny Shakespeare with ACT
   halting, recursion routing and per-pass KV caches).
