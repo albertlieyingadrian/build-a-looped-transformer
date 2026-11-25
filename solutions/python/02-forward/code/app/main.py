@@ -1,4 +1,4 @@
-"""Build your own looped transformer: one command per stage.
+"""Build a looped transformer: one command per stage.
 
     ./your_program.sh <command> [options]
 

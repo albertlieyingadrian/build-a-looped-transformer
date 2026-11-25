@@ -1,4 +1,4 @@
-# Build your own Looped Transformer
+# Build a Looped Transformer
 
 A standard transformer gets one pass through its layers to answer. A **looped transformer** sends its state through
 the same block of layers again and again: more thinking per token, no more weights. Inkling 2 Mini runs its middle 12
@@ -17,10 +17,10 @@ In this course you build one from scratch, in plain PyTorch, on a laptop CPU:
    ablation with a fixed-point check, and one sparse autoencoder for every loop (stages 11-16);
 6. two extensions: adaptive exit, and Inkling-style message passing between passes (stages 17-18).
 
-The layout follows the CodeCrafters "build your own X" courses: a `course-definition.yml`, one description per stage
-in `stage_descriptions/`, a starter in `starter_templates/python/`, the reference program after every stage in
-`solutions/python/`, and tests per stage. The model code follows the structure of nanoGPT. Nothing is copied
-from either; both are credited below. This is an independent project, not affiliated with or endorsed by CodeCrafters.
+The layout follows the stage-by-stage style of CodeCrafters' build-your-own-X courses (https://codecrafters.io): a
+`course-definition.yml`, one description per stage in `stage_descriptions/`, a starter in `starter_templates/python/`,
+the reference program after every stage in `solutions/python/`, and tests per stage. The model code follows the structure of nanoGPT. Nothing is copied
+from either; both are credited below. This is an independent course, not affiliated with or endorsed by CodeCrafters.
 
 ## What you'll find
 
@@ -108,7 +108,7 @@ What each one is, and what this course borrows. We wrote our own code; nothing b
 
 - nanoGPT, https://github.com/karpathy/nanoGPT, and the "Let's build GPT" lecture code,
   https://github.com/karpathy/ng-video-lecture: the shape of stages 01-05.
-- CodeCrafters "build your own" courses (MIT), https://github.com/codecrafters-io/build-your-own-tokenizer and
+- CodeCrafters' open-source course repos (MIT), https://github.com/codecrafters-io/build-your-own-tokenizer and
   https://github.com/codecrafters-io/build-your-own-inference-engine: the course layout.
 
 **Looped and recurrent-depth models**
