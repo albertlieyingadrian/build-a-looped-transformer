@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+runs/**/*.pt
+runs/log_*.txt
+data/tinyshakespeare.txt
+.DS_Store
+runs/interp_*.txt

@@ -1,0 +1,148 @@
+slug: "looped-transformer"
+name: "Build your own Looped Transformer"
+short_name: "Looped Transformer"
+release_status: "alpha"
+
+description_md: |-
+  A standard transformer gets one pass through its layers to answer. A looped transformer runs the same block of
+  layers again and again, so it can think longer without storing more weights. Recent open models do this at scale:
+  a 24-layer model that runs its middle 12 layers three times, a 3.5B model whose core can be run 4 to 64 times.
+
+  You'll build a tiny GPT from scratch, turn it into a looped transformer with a prelude, a shared core run K times
+  and a coda, train both on a puzzle that needs depth (follow a chain of assignments to a digit), and watch the
+  looped model solve longer chains just by looping more. Then you'll open it up: logit and tuned lenses per loop,
+  linear probes, activation patching across loops, loop ablations and a sparse autoencoder shared by every loop.
+
+  Everything runs on a laptop CPU in minutes, in plain PyTorch.
+
+short_description_md: |-
+  Learn about attention, weight sharing across depth, and how to look inside a model that loops
+
+completion_percentage: 15
+
+languages:
+  - slug: "python"
+
+marketing:
+  difficulty: medium
+  sample_extension_idea_title: "Adaptive exit"
+  sample_extension_idea_description: "A looped model that decides by itself when it has looped enough."
+  frequently_asked_questions:
+    - question_markdown: "What exactly will I build?"
+      answer_markdown: |-
+        A command-line program with one command per stage. By the end it trains a character-level GPT, a looped
+        GPT with the same number of weights, and two standard baselines on a chain-following puzzle; scores every
+        loop count from 1 to 16 on chains up to twice as long as any seen in training; and runs six
+        interpretability tools on the looped model, loop by loop.
+    - question_markdown: "What do I need to know first?"
+      answer_markdown: |-
+        Python and a little linear algebra (vectors, matrix multiplication). No machine learning background is
+        assumed: every stage explains the idea with an analogy and a worked example before the code.
+
+extensions:
+  - slug: "adaptive-exit"
+    name: "Adaptive exit"
+    description_markdown: |-
+      Stop looping when the answer stops changing, and measure how many loops each puzzle really needs.
+  - slug: "message-passing"
+    name: "Message passing between passes"
+    description_markdown: |-
+      Instead of re-adding the input, restart every pass from the input and pass a gated message from the
+      previous pass, as Inkling 2 Mini does.
+
+stages:
+  - slug: "tokenize"
+    name: "Characters to numbers"
+    difficulty: very_easy
+    marketing_md: |-
+      In this stage, you'll implement a `tokenize` command that turns text into token ids and back.
+  - slug: "forward"
+    name: "Embeddings and the forward pass"
+    difficulty: easy
+    marketing_md: |-
+      In this stage, you'll give every token a vector, turn vectors into next-token scores, and check the loss of
+      an untrained model.
+  - slug: "attention"
+    name: "Causal self-attention"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll implement self-attention with a causal mask and prove that no position reads the future.
+  - slug: "block"
+    name: "The transformer block"
+    difficulty: easy
+    marketing_md: |-
+      In this stage, you'll wrap attention and an MLP in residual connections and LayerNorm.
+  - slug: "train-gpt"
+    name: "Train a tiny GPT"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll write the training loop and train a character-level GPT on Shakespeare.
+  - slug: "loop"
+    name: "Loop it"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll split the stack into a prelude, a shared core run K times and a coda.
+  - slug: "chain"
+    name: "A task that needs depth"
+    difficulty: easy
+    marketing_md: |-
+      In this stage, you'll generate chain-following puzzles whose difficulty is the number of links.
+  - slug: "train-looped"
+    name: "Random loop counts"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll train the looped model with a random loop count per batch and sweep K from 1 to 16.
+  - slug: "injection"
+    name: "Input injection"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll compare re-adding the input every loop with a plain loop that forgets it.
+  - slug: "compare"
+    name: "Looped vs standard"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll train standard models with the same weights and the same compute and test all three
+      on chains longer than any seen in training.
+  - slug: "logit-lens"
+    name: "Logit lens per loop"
+    difficulty: easy
+    marketing_md: |-
+      In this stage, you'll decode the model's state after every loop to see when the answer appears.
+  - slug: "tuned-lens"
+    name: "Tuned and Jacobian lenses per loop"
+    difficulty: hard
+    marketing_md: |-
+      In this stage, you'll fit a small map per loop, and see why one map averaged over every loop reads less.
+  - slug: "probe"
+    name: "Linear probes per loop"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll train probes that read which link of the chain the model has reached after each loop.
+  - slug: "patch"
+    name: "Activation patching across loops"
+    difficulty: hard
+    marketing_md: |-
+      In this stage, you'll copy states between two runs to find which loops carry the answer.
+  - slug: "ablate"
+    name: "Loop ablation and convergence"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll skip single loops and ask whether the state settles to a fixed point.
+  - slug: "sae"
+    name: "A sparse autoencoder shared across loops"
+    difficulty: hard
+    marketing_md: |-
+      In this stage, you'll train one sparse autoencoder on every loop's states and follow one feature through the
+      loops.
+  - slug: "adaptive-exit"
+    primary_extension_slug: "adaptive-exit"
+    name: "Adaptive exit"
+    difficulty: easy
+    marketing_md: |-
+      In this stage, you'll stop looping once the answer stops changing.
+  - slug: "message-passing"
+    primary_extension_slug: "message-passing"
+    name: "Message passing between passes"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll replace input injection with a gated message from the previous pass.
