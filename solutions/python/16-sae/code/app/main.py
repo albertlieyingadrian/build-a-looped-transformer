@@ -99,7 +99,7 @@ def cmd_block(args):
         torch.nn.init.zeros_(lin.bias)
     print(f"with the write-back layers at zero the block is the identity: {torch.allclose(block(x), x)}")
     big = x * 100
-    print(f"LayerNorm output mean {block.ln1(big).mean().item():.2f}, std {block.ln1(big).std().item():.2f}")
+    print(f"LayerNorm output mean {round(block.ln1(big).mean().item(), 2) + 0.0:.2f}, std {block.ln1(big).std().item():.2f}")
 
 
 def cmd_train_gpt(args):

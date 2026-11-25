@@ -19,8 +19,8 @@ In this course you build one from scratch, in plain PyTorch, on a laptop CPU:
 
 The layout follows the CodeCrafters "build your own X" courses: a `course-definition.yml`, one description per stage
 in `stage_descriptions/`, a starter in `starter_templates/python/`, the reference program after every stage in
-`solutions/python/`, and tests per stage. The model code follows the structure of Karpathy's nanoGPT. Nothing is copied
-from either; both are credited below.
+`solutions/python/`, and tests per stage. The model code follows the structure of nanoGPT. Nothing is copied
+from either; both are credited below. This is an independent project, not affiliated with or endorsed by CodeCrafters.
 
 ## What you'll find
 
@@ -47,6 +47,17 @@ length). Inside the looped model:
   tuned lens is needed (0.78-0.99) (stage 12).
 - **Late edits stick, early ones wash out**: patching the clean state after loop 1 flips 2-5% of answers; after loop
   3, 96-99% (stage 14). Every loop matters equally (stage 15), and the state never reaches a fixed point.
+
+## Limitations
+
+- Toy scale: 157k-507k parameters, one synthetic task (chain following) plus a tiny Shakespeare run. The findings
+  describe this task and these sizes; they are not claims about large looped language models.
+- Three seeds per result. The "longest chain solved" numbers move by one or two links between seeds, so read them as
+  ranges.
+- The interpretability stages (11-16) use one trained looped model per seed and simple controls (shuffled labels,
+  untrained models, random directions); they show methods, not a full mechanistic account.
+- Stage 18's message passing is a simplified, single-gate version of the published design.
+- CPU only and unoptimised: training is written for clarity, not speed.
 
 ## Stages
 
